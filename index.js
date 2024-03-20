@@ -93,7 +93,12 @@ const validPath = (testPath, mode = fs.R_OK | fs.X_OK) => {
   let ok = fs.existsSync(testPath);
   if (ok) {
     const lstat = fs.lstatSync(testPath);
-    ok = lstat.isDirectory();
+    const isDirectory = lstat.isDirectory();
+    ok = isDirectory
+    if(!isDirectory){
+      error(chalk.red('Input path must be a directory containing all the *.epub files to be converted'))
+      process.exit(1);
+    }
   }
 
   if (ok) {
@@ -185,7 +190,7 @@ commander
   .command('convert')
   .description('Convert epub files to text files.')
   .option('-i, --input-path <inputPath>', 'the path to the epub files')
-  .option('-o, --output-path <outputPath>', 'the path to output the json files')
+  .option('-o, --output-path <outputPath>', 'the path to output the json files. (overwrites existing <inputFilename>.json files)')
   .on('--help', help)
   .action(convertAction);
 

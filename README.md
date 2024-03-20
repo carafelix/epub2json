@@ -10,7 +10,7 @@ $ npm install -g epub2json
 
 ## Usage
 
-Convert .epub files from src path to .json file in output path.
+Convert all *.epub files contained in a directory path, to *.json files in output path. (overwrites existing inputName.json files)
 
 ```
 $ epub2json convert -i </path/to/epubs> -o </path/to/output>
